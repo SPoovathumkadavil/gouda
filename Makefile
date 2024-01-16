@@ -4,17 +4,16 @@ MAKEFLAGS = -s
 SRC_DIR = src
 OBJ_DIR = build
 BIN_DIR = bin
-INCL_DIR = include
+INCL_DIR = $(SRC_DIR)/include
 
-CPP_SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(SRC_DIR)/*/*.cpp) $(wildcard $(SRC_DIR)/*/*/*.cpp)
+C_SRC_FILES := $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c)
 
-OBJ_FILES := $(subst $(SRC_DIR), $(OBJ_DIR), $(addsuffix .o, $(basename $(CPP_SRC_FILES))))
+OBJ_FILES := $(subst $(SRC_DIR), $(OBJ_DIR), $(addsuffix .o, $(basename $(C_SRC_FILES))))
 
 OUT = $(BIN_DIR)/gouda
 
 CC = gcc
-CPP = c++
-CPPFLAGS = -std=c++17 -Wall -r
+CFLAGS = -std=c99 -Wall -r
 LDFLAGS =
 
 build: $(OUT)
@@ -24,9 +23,9 @@ $(OUT) : $(OBJ_FILES)
 	$(CC) $(LDFLAGS) $(OBJ_FILES) -o $(OUT)
 	echo "Linking $(OBJ_FILES) -------> $(OUT)"
 
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp 
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	mkdir -p $(dir $@)
-	$(CPP) $(CPPFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 	echo "$<  ----->  $@"
 
 
