@@ -6,6 +6,8 @@ OBJ_DIR = build
 BIN_DIR = /home/sally/dev/.bin
 INCL_DIR = $(SRC_DIR)/include
 
+TEST_FILE = test/ReadTest.whoa
+
 C_SRC_FILES := $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c)
 
 OBJ_FILES := $(subst $(SRC_DIR), $(OBJ_DIR), $(addsuffix .o, $(basename $(C_SRC_FILES))))
@@ -31,7 +33,6 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $< -o $@
 	echo "$<  ----->  $@"
 
-
 files:	
 	echo "<----- .cpp ----->"
 	echo $(CPP_SRC_FILES)  "\n"
@@ -55,7 +56,7 @@ print:
 		if which figlet >/dev/null; then figlet -c Gouda; else echo "Gouda"; fi
 
 run:
-	$(OUT)
+	$(OUT) $(TEST_FILE)
 
 clean:
 	echo "Remaking Build Directory"
