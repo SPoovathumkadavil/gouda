@@ -1,4 +1,4 @@
-
+# hello!
 MAKEFLAGS = -s
 
 SRC_DIR = src
