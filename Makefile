@@ -3,7 +3,7 @@ MAKEFLAGS = -s
 
 SRC_DIR = src
 OBJ_DIR = build
-BIN_DIR = bin
+BIN_DIR = /home/sally/dev/.bin
 INCL_DIR = $(SRC_DIR)/include
 
 C_SRC_FILES := $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c)
@@ -11,9 +11,10 @@ C_SRC_FILES := $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcar
 OBJ_FILES := $(subst $(SRC_DIR), $(OBJ_DIR), $(addsuffix .o, $(basename $(C_SRC_FILES))))
 
 OUT = $(BIN_DIR)/gouda
+USER = sally
 
 CC = gcc
-CFLAGS = -std=c99 -Wall -r
+CFLAGS = -std=c99 -I$(INCL_DIR) -Wall -r
 LDFLAGS =
 
 build: $(OUT)
@@ -22,6 +23,8 @@ $(OUT) : $(OBJ_FILES)
 	echo "Making Output"
 	$(CC) $(LDFLAGS) $(OBJ_FILES) -o $(OUT)
 	echo "Linking $(OBJ_FILES) -------> $(OUT)"
+	sudo chown $(USER) $(OUT)
+	sudo chmod +x $(OUT)
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	mkdir -p $(dir $@)
