@@ -26,7 +26,7 @@ $(OUT) : $(OBJ_FILES)
 	$(CC) $(LDFLAGS) $(OBJ_FILES) -o $(OUT)
 	echo "Linking $(OBJ_FILES) -------> $(OUT)"
 	sudo chown $(USER) $(OUT)
-	sudo chmod +x $(OUT)
+	sudo chmod +rwx $(OUT)
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	mkdir -p $(dir $@)
